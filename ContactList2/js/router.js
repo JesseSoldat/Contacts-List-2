@@ -38,7 +38,7 @@ export default Backbone.Router.extend({
     });
 
     this.$el.on('click', '.add-user', (event) => {
-      console.log("added user");
+      
       this.navigate("addnew", {trigger: true});
     });
   }, //end of initialize
@@ -81,7 +81,7 @@ export default Backbone.Router.extend({
   showPerson(id) {
     let person = this.collection.get(id);
 
-    console.log(person);
+    
 
     if (person) {
       // we found the person from the collection

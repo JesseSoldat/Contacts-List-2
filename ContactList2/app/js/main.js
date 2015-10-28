@@ -37,12 +37,32 @@ require('./ajax_setup');
 
 //get ajax_setup
 
+var _resources = require('./resources');
+
+var _resources2 = _interopRequireDefault(_resources);
+
 var _router = require('./router');
 
 var _router2 = _interopRequireDefault(_router);
 
 var $app = (0, _jquery2['default'])('.app');
 new _router2['default']($app).start();
+
+var getContactForm = function getContactForm() {
+  var firstName = (0, _jquery2['default'])('.firstName').val();
+  var lastName = (0, _jquery2['default'])('.lastName').val();
+  var email = (0, _jquery2['default'])('.email').val();
+  var telephone = (0, _jquery2['default'])('.telephone').val();
+  var location = (0, _jquery2['default'])('.location').val();
+
+  var addContact = new Person({
+    FirstName: firstName,
+    LastName: lastName,
+    Email: email,
+    Telephone: telephone,
+    Location: location
+  });
+}; //end of getContactForm
 
 // import {People} from './resources';
 // import {PeopleView} from './views';
@@ -61,7 +81,7 @@ new _router2['default']($app).start();
 
 // });
 
-},{"./ajax_setup":1,"./router":7,"jquery":14,"underscore":15}],3:[function(require,module,exports){
+},{"./ajax_setup":1,"./resources":4,"./router":7,"jquery":14,"underscore":15}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -206,7 +226,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     });
 
     this.$el.on('click', '.add-user', function (event) {
-      console.log("added user");
+
       _this.navigate("addnew", { trigger: true });
     });
   }, //end of initialize
@@ -249,8 +269,6 @@ exports['default'] = _backbone2['default'].Router.extend({
 
     var person = this.collection.get(id);
 
-    console.log(person);
-
     if (person) {
       // we found the person from the collection
       this.$el.html((0, _views.Person)(person.toJSON()));
@@ -282,7 +300,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports["default"] = function (data) {
-  return "\n    <button class=\"back-button\" data-to=\"people\">\n        <i class=\"fa fa-arrow-left\"></i>\n    </button>\n\n    <div class=\"people-list\">\n     <h1>Add a Contact</h1>\n     <form>\n      <input type=\"text\" placeholder=\"First Name\">\n      <br>\n      <input type=\"text\" placeholder=\"Last Name\">\n      <br>\n      <input type=\"text\" placeholder=\"Email\">\n      <br> \n      <input type=\"text\" placeholder=\"Telephone\"> \n      <br>\n      <input type=\"text\" placeholder=\"Location\"> \n     </form>\n      \n      <button class=\"add-user\" type=\"submit\">Add Contact</button>\n    </div>\n  ";
+  return "\n    <button class=\"back-button\" data-to=\"people\">\n        <i class=\"fa fa-arrow-left\"></i>\n    </button>\n\n    <div class=\"people-list\">\n     <h1>Add a Contact</h1>\n     <form>\n      <input type=\"text\" class=\"firstName\" placeholder=\"First Name\" val=\"\">\n      <br>\n      <input type=\"text\" class=\"lastName\" placeholder=\"Last Name\" val=\"\">\n      <br>\n      <input type=\"text\" class=\"email\" placeholder=\"Email\">\n      <br> \n      <input type=\"text\" class=\"telephone\" placeholder=\"Telephone\"> \n      <br>\n      <input type=\"text\" class=\"location\" placeholder=\"Location\"> \n     </form>\n      \n      <button class=\"add-user\" type=\"submit\">Add Contact</button>\n    </div>\n  ";
 };
 
 module.exports = exports["default"];

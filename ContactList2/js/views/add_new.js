@@ -7,15 +7,15 @@ export default function(data) {
     <div class="people-list">
      <h1>Add a Contact</h1>
      <form>
-      <input type="text" placeholder="First Name">
+      <input type="text" class="firstName" placeholder="First Name" val="">
       <br>
-      <input type="text" placeholder="Last Name">
+      <input type="text" class="lastName" placeholder="Last Name" val="">
       <br>
-      <input type="text" placeholder="Email">
+      <input type="text" class="email" placeholder="Email">
       <br> 
-      <input type="text" placeholder="Telephone"> 
+      <input type="text" class="telephone" placeholder="Telephone"> 
       <br>
-      <input type="text" placeholder="Location"> 
+      <input type="text" class="location" placeholder="Location"> 
      </form>
       
       <button class="add-user" type="submit">Add Contact</button>

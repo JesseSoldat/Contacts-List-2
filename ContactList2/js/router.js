@@ -2,6 +2,7 @@ import Backbone from 'backbone';
 import $ from 'jquery';
 
 import {
+  Person as PersonModel,
   People as PeopleCollection
 } from './resources';
 
@@ -19,7 +20,7 @@ export default Backbone.Router.extend({
     "people"      : "showPeople",
     "person/:id"  : "showPerson",
     "addnew"      : "addNew"
-  },
+  }, //end of routes
 
   initialize(appElement) {
     this.$el = appElement;
@@ -41,23 +42,44 @@ export default Backbone.Router.extend({
       
       this.navigate("addnew", {trigger: true});
     });
-  }, //end of initialize
+
+    this.$el.on('click', '.addUser', (event) => {
+      // console.log('submit');
+      let firstName = $('.firstName').val();
+      let lastName = $('.lastName').val();
+      let email = $('.email').val();
+      let telephone = $('.telephone').val();
+      let location = $('.location').val();
+      console.log(firstName, lastName, email);
+      
+      let newUser = new PersonModel ({
+      FirstName: firstName,
+      LastName: lastName,
+      Email: email,
+      Telephone: telephone,
+      Location: location 
+      }); //end of newUser
+      console.log(newUser);
+
+     });  //end of $el.on click .addUser
+   
+}, //end of initialize
 
   start() {
     Backbone.history.start();
     return this;
-  },
+  }, //end of start()
 
   showSpinner() {
     this.$el.html( Spinner() );
-  },
+  }, //end of showSpinner()
 
   redirectToPeople() {
     this.navigate('people', {
       replace: true,
       trigger: true
     });
-  },
+  }, //end of redirectToPeople()
 
   showPeople() {
     this.showSpinner();
@@ -76,12 +98,10 @@ export default Backbone.Router.extend({
         )
       );
     });
-  },
+  }, //end of showPeople()
 
   showPerson(id) {
     let person = this.collection.get(id);
-
-    
 
     if (person) {
       // we found the person from the collection
@@ -101,7 +121,7 @@ export default Backbone.Router.extend({
         );
       });
     }
-  },
+  }, //end of showPerson(id)
 
   addNew() { 
     
@@ -110,8 +130,7 @@ export default Backbone.Router.extend({
       AddNewView(
         ) //end of AddNewView
       ) //end $el.html
-
     
   } //end of addNew
 
-});
+}); //end of Backbone.Router.extend 

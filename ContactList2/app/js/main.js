@@ -48,22 +48,6 @@ var _router2 = _interopRequireDefault(_router);
 var $app = (0, _jquery2['default'])('.app');
 new _router2['default']($app).start();
 
-var getContactForm = function getContactForm() {
-  var firstName = (0, _jquery2['default'])('.firstName').val();
-  var lastName = (0, _jquery2['default'])('.lastName').val();
-  var email = (0, _jquery2['default'])('.email').val();
-  var telephone = (0, _jquery2['default'])('.telephone').val();
-  var location = (0, _jquery2['default'])('.location').val();
-
-  var addContact = new Person({
-    FirstName: firstName,
-    LastName: lastName,
-    Email: email,
-    Telephone: telephone,
-    Location: location
-  });
-}; //end of getContactForm
-
 // import {People} from './resources';
 // import {PeopleView} from './views';
 
@@ -205,7 +189,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     "people": "showPeople",
     "person/:id": "showPerson",
     "addnew": "addNew"
-  },
+  }, //end of routes
 
   initialize: function initialize(appElement) {
     var _this = this;
@@ -229,23 +213,42 @@ exports['default'] = _backbone2['default'].Router.extend({
 
       _this.navigate("addnew", { trigger: true });
     });
+
+    this.$el.on('click', '.addUser', function (event) {
+      // console.log('submit');
+      var firstName = (0, _jquery2['default'])('.firstName').val();
+      var lastName = (0, _jquery2['default'])('.lastName').val();
+      var email = (0, _jquery2['default'])('.email').val();
+      var telephone = (0, _jquery2['default'])('.telephone').val();
+      var location = (0, _jquery2['default'])('.location').val();
+      console.log(firstName, lastName, email);
+
+      var newUser = new _resources.Person({
+        FirstName: firstName,
+        LastName: lastName,
+        Email: email,
+        Telephone: telephone,
+        Location: location
+      }); //end of newUser
+      console.log(newUser);
+    }); //end of $el.on click .addUser
   }, //end of initialize
 
   start: function start() {
     _backbone2['default'].history.start();
     return this;
-  },
+  }, //end of start()
 
   showSpinner: function showSpinner() {
     this.$el.html((0, _views.Spinner)());
-  },
+  }, //end of showSpinner()
 
   redirectToPeople: function redirectToPeople() {
     this.navigate('people', {
       replace: true,
       trigger: true
     });
-  },
+  }, //end of redirectToPeople()
 
   showPeople: function showPeople() {
     var _this2 = this;
@@ -262,7 +265,7 @@ exports['default'] = _backbone2['default'].Router.extend({
 
       _this2.$el.html((0, _views.People)(_this2.collection.toJSON()));
     });
-  },
+  }, //end of showPeople()
 
   showPerson: function showPerson(id) {
     var _this3 = this;
@@ -279,7 +282,7 @@ exports['default'] = _backbone2['default'].Router.extend({
         _this3.$el.html((0, _views.Person)(person.toJSON()));
       });
     }
-  },
+  }, //end of showPerson(id)
 
   addNew: function addNew() {
 
@@ -289,6 +292,7 @@ exports['default'] = _backbone2['default'].Router.extend({
   } //end of addNew
 
 });
+//end of Backbone.Router.extend
 module.exports = exports['default'];
 //views
 
@@ -300,7 +304,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports["default"] = function (data) {
-  return "\n    <button class=\"back-button\" data-to=\"people\">\n        <i class=\"fa fa-arrow-left\"></i>\n    </button>\n\n    <div class=\"people-list\">\n     <h1>Add a Contact</h1>\n     <form>\n      <input type=\"text\" class=\"firstName\" placeholder=\"First Name\" val=\"\">\n      <br>\n      <input type=\"text\" class=\"lastName\" placeholder=\"Last Name\" val=\"\">\n      <br>\n      <input type=\"text\" class=\"email\" placeholder=\"Email\">\n      <br> \n      <input type=\"text\" class=\"telephone\" placeholder=\"Telephone\"> \n      <br>\n      <input type=\"text\" class=\"location\" placeholder=\"Location\"> \n     </form>\n      \n      <button class=\"add-user\" type=\"submit\">Add Contact</button>\n    </div>\n  ";
+  return "\n    <button class=\"back-button\" data-to=\"people\">\n        <i class=\"fa fa-arrow-left\"></i>\n    </button>\n\n    <div class=\"people-list\">\n     <h1>Add a Contact</h1>\n     <form>\n      <input type=\"text\" class=\"firstName\" placeholder=\"First Name\" val=\"\">\n      <br>\n      <input type=\"text\" class=\"lastName\" placeholder=\"Last Name\" val=\"\">\n      <br>\n      <input type=\"text\" class=\"email\" placeholder=\"Email\">\n      <br> \n      <input type=\"text\" class=\"telephone\" placeholder=\"Telephone\"> \n      <br>\n      <input type=\"text\" class=\"location\" placeholder=\"Location\"> \n     </form>\n      \n      <button class=\"addUser\" type=\"submit\">Add Contact</button>\n    </div>\n  ";
 };
 
 module.exports = exports["default"];

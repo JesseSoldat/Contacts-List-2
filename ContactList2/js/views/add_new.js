@@ -18,7 +18,7 @@ export default function(data) {
       <input type="text" class="location" placeholder="Location"> 
      </form>
       
-      <button class="add-user" type="submit">Add Contact</button>
+      <button class="addUser" type="submit">Add Contact</button>
     </div>
   `;
 }

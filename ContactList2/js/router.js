@@ -43,7 +43,7 @@ export default Backbone.Router.extend({
       this.navigate("addnew", {trigger: true});
     });
 
-    this.$el.on('click', '.addUser', (event) => {
+    this.$el.on('click', '.addUser', (event) => { //on click of the submit button we will get the information in the different text boxes
       // console.log('submit');
       let firstName = $('.firstName').val();
       let lastName = $('.lastName').val();
@@ -52,6 +52,7 @@ export default Backbone.Router.extend({
       let location = $('.location').val();
       console.log(firstName, lastName, email);
       
+      //create a new instance from the PersonModel Constructor which takes the values from our form
       let newUser = new PersonModel ({
       FirstName: firstName,
       LastName: lastName,
@@ -60,6 +61,12 @@ export default Backbone.Router.extend({
       Location: location 
       }); //end of newUser
       console.log(newUser);
+
+      this.collection.add(newUser); //add the newUser object 
+      newUser.save().then(() => { //save it to parse
+        console.log('saved');
+        this.navigate("", {trigger:true}); //go back to the homepage
+      }); //end of .save().then()
 
      });  //end of $el.on click .addUser
    

@@ -215,6 +215,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     });
 
     this.$el.on('click', '.addUser', function (event) {
+      //on click of the submit button we will get the information in the different text boxes
       // console.log('submit');
       var firstName = (0, _jquery2['default'])('.firstName').val();
       var lastName = (0, _jquery2['default'])('.lastName').val();
@@ -223,6 +224,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       var location = (0, _jquery2['default'])('.location').val();
       console.log(firstName, lastName, email);
 
+      //create a new instance from the PersonModel Constructor which takes the values from our form
       var newUser = new _resources.Person({
         FirstName: firstName,
         LastName: lastName,
@@ -231,6 +233,13 @@ exports['default'] = _backbone2['default'].Router.extend({
         Location: location
       }); //end of newUser
       console.log(newUser);
+
+      _this.collection.add(newUser); //add the newUser object
+      newUser.save().then(function () {
+        //save it to parse
+        console.log('saved');
+        _this.navigate("", { trigger: true }); //go back to the homepage
+      }); //end of .save().then()
     }); //end of $el.on click .addUser
   }, //end of initialize
 
@@ -347,7 +356,7 @@ Object.defineProperty(exports, '__esModule', {
 });
 function processData(data) {
   return data.map(function (item) {
-    return '\n      <li class="person-list-item" data-person-id="' + item.objectId + '">\n        <span>' + item.FirstName + '</span>\n      </li>\n    ';
+    return '\n      <li class="person-list-item" data-person-id="' + item.objectId + '">\n        <span>' + item.FirstName + ' ' + item.LastName + '</span>\n      </li>\n    ';
   }).join('');
 }
 
